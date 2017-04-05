@@ -1,0 +1,58 @@
+{
+  "name": "vecinstrumentpanel",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "process": "^0.11.9",
+    "react": "~15.4.0",
+    "react-mixin": "^2.0.2",
+    "react-native": "0.41.2",
+    "react-native-android-wifi": "rafaame/react-native-android-wifi.git",
+    "react-native-extended-stylesheet": "^0.3.2",
+    "react-native-keep-awake": "^2.0.2",
+    "react-native-lock-manager": "rafaame/react-native-lock-manager",
+    "react-native-orientation": "rafaame/react-native-orientation",
+    "react-native-progress": "git://github.com/rafaame/react-native-progress.git",
+    "react-native-router-flux": "^3.37.0",
+    "react-native-tcp": "rafaame/react-native-tcp.git",
+    "react-native-udp": "^2.0.0",
+    "react-native-vector-icons": "^4.0.1",
+    "react-redux": "^5.0.3",
+    "react-timer-mixin": "^0.13.3",
+    "readable-stream": "^1.0.33",
+    "redux": "^3.6.0",
+    "redux-logger": "^2.8.1",
+    "redux-thunk": "^2.2.0",
+    "stream-browserify": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-jest": "18.0.0",
+    "babel-preset-react-native": "1.9.1",
+    "jest": "18.1.0",
+    "react-test-renderer": "~15.4.0",
+    "rn-nodeify": "^7.0.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "react-native": {
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify"
+  },
+  "browser": {
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify"
+  }
+}

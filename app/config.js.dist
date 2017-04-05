@@ -1,0 +1,7 @@
+export default {
+	serverApSsid: '',
+	serverApPassword: '',
+	serverIpAddr: '',
+	serverPort: 27015,
+	tcpTimeout: 5000
+};
