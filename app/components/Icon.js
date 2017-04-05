@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { ActionCreators } from '../actions';
+import colors from '../colors';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
@@ -13,13 +14,6 @@ const {
     Image,
     Text
 } = ReactNative;
-
-const colors = {
-    success: '#64DD17',
-    info: '#2196F3',
-    warning: '#FFC107',
-    danger: '#F44336'
-};
 
 class Icon extends Component {
     constructor(props: any, context: any) {
@@ -35,8 +29,8 @@ class Icon extends Component {
             case 'material-icons':
                 return (
                     <View style={styles.container}>
-                        <MaterialIcon name={this.props.icon} size={32} color={colors[this.props.type]} style={styles.image} />
-                        <Text style={styles.subscript}>{this.props.subscript}</Text>
+                        <MaterialIcon name={this.props.icon} size={32} color={colors[this.props.type].default} style={styles.image} />
+                        {this.props.subscript && <Text style={styles.subscript}>{this.props.subscript}</Text>}
                     </View>
                 )
                 break;
@@ -45,7 +39,7 @@ class Icon extends Component {
                 return (
                     <View style={styles.container}>
                         <Image
-                          style={[styles.image, {tintColor: colors[this.props.type]}]}
+                          style={[styles.image, {tintColor: colors[this.props.type].default}]}
                           source={{ uri: this.props.icon }}
                         />
                     </View>
@@ -60,7 +54,9 @@ const styles = EStyleSheet.create({
         height: 48,
 
         marginLeft: 8,
-        marginRight: 8
+        marginRight: 8,
+
+        justifyContent: 'center'
     },
 
     image: {

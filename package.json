@@ -16,6 +16,7 @@
     "react-native-keep-awake": "^2.0.2",
     "react-native-lock-manager": "rafaame/react-native-lock-manager",
     "react-native-orientation": "rafaame/react-native-orientation",
+    "react-native-pathjs-charts": "capitalone/react-native-pathjs-charts#7e0393c6898e4f0c95041c37eeab837b11374242",
     "react-native-progress": "git://github.com/rafaame/react-native-progress.git",
     "react-native-router-flux": "^3.37.0",
     "react-native-tcp": "rafaame/react-native-tcp.git",

@@ -51,6 +51,7 @@
 		0BD0ADB4434B4776AEC74C31 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6971DCD98CB430FA5B18B60 /* Octicons.ttf */; };
 		8476ECC0B02B4122ABC3B722 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 918389EF5432482495A0019D /* SimpleLineIcons.ttf */; };
 		6BA16ED2225C4328A59B2A3E /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B96DDAFC8834DDF9FE303A9 /* Zocial.ttf */; };
+		036EF5D3E71748CF85C3AD4F /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF67A3955074929BDF5C98D /* libRNSVG.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -292,6 +293,8 @@
 		D6971DCD98CB430FA5B18B60 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		918389EF5432482495A0019D /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		0B96DDAFC8834DDF9FE303A9 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C722DAC8A170475DA626FBFB /* RNSVG.xcodeproj */ = {isa = PBXFileReference; name = "RNSVG.xcodeproj"; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		3EF67A3955074929BDF5C98D /* libRNSVG.a */ = {isa = PBXFileReference; name = "libRNSVG.a"; path = "libRNSVG.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -324,6 +327,7 @@
 				777207471243499AAF7A929E /* libRCTActionSheet.a in Frameworks */,
 				E64EBE96E74844918CEFE092 /* libTcpSockets.a in Frameworks */,
 				81DFFD7280E54CD3BB695055 /* libRNVectorIcons.a in Frameworks */,
+				036EF5D3E71748CF85C3AD4F /* libRNSVG.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,6 +500,7 @@
 				C512422BAD8C43A396B74BB2 /* ConicalGradient.xcodeproj */,
 				A02BE39A2209447EBD2EFECC /* TcpSockets.xcodeproj */,
 				99EC6931AF4343DFA4732B44 /* RNVectorIcons.xcodeproj */,
+				C722DAC8A170475DA626FBFB /* RNSVG.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1053,6 +1058,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1073,6 +1079,7 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/vecinstrumentpanel.app/vecinstrumentpanel";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
@@ -1139,6 +1146,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1169,6 +1177,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Release;
@@ -1194,6 +1203,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1218,6 +1228,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};

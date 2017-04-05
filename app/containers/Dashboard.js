@@ -9,6 +9,7 @@ const Orientation = require('react-native-orientation');
 
 import { ActionCreators } from '../actions';
 import Gauge from '../components/Gauge';
+import LineChart from '../components/LineChart';
 import Icon from '../components/Icon';
 
 const {
@@ -74,8 +75,8 @@ class Dashboard extends Component {
                     </View>
                         
                     <View style={styles.headerRight}>
-                        <Icon icon='icon_oil' type='danger' active={this.props.hasOilPressure} />
-                        <Icon icon='icon_battery' type='danger' active={this.props.hasOilPressure} />
+                        <Icon icon='icon_oil' type='danger' active={! this.props.hasOilPressure} />
+                        <Icon icon='icon_battery' type='danger' active={! this.props.hasOilPressure} />
                         <Icon icon='icon_brakes_warning' type='danger' active={this.props.isParkingBrakeOn} />
                     </View>
                 </View>
@@ -95,6 +96,13 @@ class Dashboard extends Component {
                     </View>
 
                     <View style={styles.panelRight}>
+                        <View style={styles.powerChartContainer}>
+                            <LineChart width={298} height={310} x={this.props.receiveTime} y={this.props.engineRpm} color="primary" maxPoints={50} />
+                        </View>
+
+                        <View style={styles.efficiencyChartContainer}>
+                            <LineChart width={298} height={310} x={this.props.receiveTime} y={this.props.speed} color="info" maxPoints={50} />
+                        </View>
                     </View>
                 </View>
                 <View style={styles.footer} />
@@ -126,12 +134,17 @@ const styles = StyleSheet.create({
 
   headerLeft: {
     flex: 0.5,
-    flexDirection: 'row'
+    flexDirection: 'row',
+
+    alignItems: 'center'
   },
 
   headerRight: {
     flex: 0.5,
-    flexDirection: 'row'
+    flexDirection: 'row',
+
+    alignItems: 'center',
+    justifyContent: 'flex-end'
   },
 
   footer: {
@@ -143,16 +156,15 @@ const styles = StyleSheet.create({
 
   panel: {
       flexGrow: 1,
-
       flexDirection: 'row'
   },
 
   panelLeft: {
-    flex: 25
+      flex: 50
   },
 
   panelCenter: {
-    flex: 50,
+    width: 640,
     flexDirection: 'column',
     alignItems: 'stretch'
   },
@@ -163,7 +175,7 @@ const styles = StyleSheet.create({
   },
 
   gaugeContainer: {
-    flex: 70,
+    height: 448,
     flexDirection: 'column',
     alignItems: 'stretch'
   },
@@ -174,7 +186,18 @@ const styles = StyleSheet.create({
   },
 
   panelRight: {
-    flex: 25
+    flex: 50,
+    flexDirection: 'column'
+  },
+
+  powerChartContainer: {
+    flex: 50,
+    flexDirection: 'row'
+  },
+
+  efficiencyChartContainer: {
+    flex: 50,
+    flexDirection: 'row'
   },
 
   textWhite: {

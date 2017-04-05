@@ -10,6 +10,14 @@ export const receiveData = createReducer({}, {
 		newState.speed = parseInt(action.data.speed);
 
 		newState.isDriverPresent = !! action.data.isDriverPresent;
+		newState.isTurnLeftOn = !! action.data.isTurnLeftOn;
+        newState.isTurnRightOn = !! action.data.isTurnRightOn;
+        newState.isHeadlampOn = !! action.data.isHeadlampOn;
+        newState.hasOpenDoor = !! action.data.hasOpenDoor;
+        newState.hasOilPressure = !! action.data.hasOilPressure;
+        newState.isParkingBrakeOn = !! action.data.isParkingBrakeOn;
+        newState.isKeyOnFirstPos = !! action.data.isKeyOnFirstPos;
+        newState.isKeyAfterFirstPos = !! action.data.isKeyAfterFirstPos;
 		
 		newState.dataJson = JSON.stringify(action.data, null, 4);
 

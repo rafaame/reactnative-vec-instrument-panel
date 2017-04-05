@@ -6,6 +6,7 @@ import TimerMixin from 'react-timer-mixin';
 import reactMixin from 'react-mixin';
 
 import { ActionCreators } from '../actions';
+import colors from '../colors';
 
 import * as Progress from 'react-native-progress';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -138,26 +139,26 @@ class Gauge extends Component {
                 <Progress.Circle
                     progress={this.engineRpmProgress}
                     direction={'counter-clockwise'}
-                    size={420}
+                    size={440}
                     thickness={20}
                     borderWidth={0}
                     style={styles.engineRpmProgress}
-                    color={'#FF9800'} />
+                    color={colors.primary.default} />
 
                 <Progress.Circle
                     progress={this.speedProgress}
-                    size={420}
+                    size={440}
                     thickness={20}
                     borderWidth={0}
                     style={styles.speedProgress}
-                    color={'#2196F3'} />
+                    color={colors.info.default} />
             </View>
         )
     }
 }
 
-const scaleRadius = 165;
-const scaleOrigin = {x: 122, y: 90};
+const scaleRadius = 178;
+const scaleOrigin = {x: 135, y: 86};
 
 const styles = EStyleSheet.create({
     container: {
@@ -172,18 +173,18 @@ const styles = EStyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
 
-        backgroundColor: '#303030',
+        backgroundColor: colors.grey.default,
 
         borderWidth: 80,
-        borderRadius: 420,
+        borderRadius: 480,
         borderStyle: 'solid',
-        borderColor: '#101010'
+        borderColor: colors.grey.dark
     },
 
     engineRpmProgress: {
         position: 'absolute',
-        top: 1,
-        left: 109,
+        top: 3,
+        left: 100,
 
         transform: [
             {rotate: '-210deg'}
@@ -192,8 +193,8 @@ const styles = EStyleSheet.create({
 
     speedProgress: {
         position: 'absolute',
-        top: 1,
-        left: 108,
+        top: 3,
+        left: 100,
 
         transform: [
             {rotate: '210deg'}
@@ -201,25 +202,25 @@ const styles = EStyleSheet.create({
     },
 
     engineRpmText: {
-        color: 'white',
+        color: colors.text.light,
 
         fontSize: 36
     },
 
     engineRpmTextUnit: {
-        color: 'white',
+        color: colors.text.light,
 
         fontSize: 16
     },
 
     speedText: {
-        color: 'white',
+        color: colors.text.light,
 
         fontSize: 48
     },
 
     speedTextUnit: {
-        color: 'white',
+        color: colors.text.light,
 
         fontSize: 18
     },
@@ -227,7 +228,7 @@ const styles = EStyleSheet.create({
     fuelLevel: {
         height: 40,
 
-        color: 'white',
+        color: colors.text.light,
 
         fontSize: 48
     },
@@ -239,7 +240,7 @@ const styles = EStyleSheet.create({
         height: 20,
 
         fontSize: 18,
-        color: 'white'
+        color: colors.text.light
     },
 
     scaleIndicator: {
@@ -248,7 +249,7 @@ const styles = EStyleSheet.create({
         width: 20,
         height: 3,
 
-        backgroundColor: 'white'
+        backgroundColor: colors.text.light
     },
 
     scaleSpeed20Text: {transform: [{translateX: scaleOrigin.x - scaleRadius * Math.cos(-40.5 * Math.PI / 180)}, {translateY: scaleOrigin.y - scaleRadius * Math.sin(-40.5 * Math.PI / 180)}]},
@@ -275,26 +276,26 @@ const styles = EStyleSheet.create({
     scaleSpeed160Text: {transform: [{translateX: scaleOrigin.x - scaleRadius * Math.cos(73.25 * Math.PI / 180)}, {translateY: scaleOrigin.y - scaleRadius * Math.sin(73.25 * Math.PI / 180)}]},
     scaleSpeed160Indicator: {transform: [{translateX: (scaleOrigin.x - 2) - (scaleRadius + 28) * Math.cos(73.25 * Math.PI / 180)}, {translateY: (scaleOrigin.y + 12) - (scaleRadius + 28) * Math.sin(73.25 * Math.PI / 180)}, {rotate: '75deg'}]},
 
-    scaleEngineRpm1kText: {transform: [{translateX: scaleOrigin.x - (scaleRadius + 4) * Math.cos(221 * Math.PI / 180)}, {translateY: scaleOrigin.y - (scaleRadius + 4) * Math.sin(221 * Math.PI / 180)}]},
-    scaleEngineRpm1kIndicator: {transform: [{translateX: (scaleOrigin.x - 2) - (scaleRadius + 30) * Math.cos(221 * Math.PI / 180)}, {translateY: (scaleOrigin.y + 10) - (scaleRadius + 30) * Math.sin(221 * Math.PI / 180)}, {rotate: '40deg'}]},
+    scaleEngineRpm1kText: {transform: [{translateX: scaleOrigin.x - (scaleRadius + 4) * Math.cos(221 * Math.PI / 180)}, {translateY: scaleOrigin.y - (scaleRadius + 5) * Math.sin(221 * Math.PI / 180)}]},
+    scaleEngineRpm1kIndicator: {transform: [{translateX: (scaleOrigin.x - 2) - (scaleRadius + 30) * Math.cos(221 * Math.PI / 180)}, {translateY: (scaleOrigin.y + 11) - (scaleRadius + 30) * Math.sin(221 * Math.PI / 180)}, {rotate: '40deg'}]},
 
-    scaleEngineRpm2kText: {transform: [{translateX: scaleOrigin.x - (scaleRadius + 4) * Math.cos(202 * Math.PI / 180)}, {translateY: scaleOrigin.y - (scaleRadius + 4) * Math.sin(202 * Math.PI / 180)}]},
-    scaleEngineRpm2kIndicator: {transform: [{translateX: (scaleOrigin.x - 2) - (scaleRadius + 30) * Math.cos(202 * Math.PI / 180)}, {translateY: (scaleOrigin.y + 10) - (scaleRadius + 30) * Math.sin(202 * Math.PI / 180)}, {rotate: '24deg'}]},
+    scaleEngineRpm2kText: {transform: [{translateX: scaleOrigin.x - (scaleRadius + 4) * Math.cos(202 * Math.PI / 180)}, {translateY: scaleOrigin.y - (scaleRadius + 5) * Math.sin(202 * Math.PI / 180)}]},
+    scaleEngineRpm2kIndicator: {transform: [{translateX: (scaleOrigin.x - 2) - (scaleRadius + 30) * Math.cos(202 * Math.PI / 180)}, {translateY: (scaleOrigin.y + 11) - (scaleRadius + 30) * Math.sin(202 * Math.PI / 180)}, {rotate: '24deg'}]},
 
-    scaleEngineRpm3kText: {transform: [{translateX: scaleOrigin.x - (scaleRadius + 4) * Math.cos(183 * Math.PI / 180)}, {translateY: scaleOrigin.y - (scaleRadius + 4) * Math.sin(183 * Math.PI / 180)}]},
-    scaleEngineRpm3kIndicator: {transform: [{translateX: (scaleOrigin.x - 2) - (scaleRadius + 30) * Math.cos(183 * Math.PI / 180)}, {translateY: (scaleOrigin.y + 10) - (scaleRadius + 30) * Math.sin(183 * Math.PI / 180)}, {rotate: '4.5deg'}]},
+    scaleEngineRpm3kText: {transform: [{translateX: scaleOrigin.x - (scaleRadius + 4) * Math.cos(183 * Math.PI / 180)}, {translateY: scaleOrigin.y - (scaleRadius + 5) * Math.sin(183 * Math.PI / 180)}]},
+    scaleEngineRpm3kIndicator: {transform: [{translateX: (scaleOrigin.x - 2) - (scaleRadius + 30) * Math.cos(183 * Math.PI / 180)}, {translateY: (scaleOrigin.y + 11) - (scaleRadius + 30) * Math.sin(183 * Math.PI / 180)}, {rotate: '4.5deg'}]},
 
-    scaleEngineRpm4kText: {transform: [{translateX: scaleOrigin.x - (scaleRadius + 4) * Math.cos(164 * Math.PI / 180)}, {translateY: scaleOrigin.y - (scaleRadius + 4) * Math.sin(164 * Math.PI / 180)}]},
-    scaleEngineRpm4kIndicator: {transform: [{translateX: (scaleOrigin.x - 2) - (scaleRadius + 30) * Math.cos(164 * Math.PI / 180)}, {translateY: (scaleOrigin.y + 10) - (scaleRadius + 30) * Math.sin(164 * Math.PI / 180)}, {rotate: '-16deg'}]},
+    scaleEngineRpm4kText: {transform: [{translateX: scaleOrigin.x - (scaleRadius + 4) * Math.cos(164 * Math.PI / 180)}, {translateY: scaleOrigin.y - (scaleRadius + 5) * Math.sin(164 * Math.PI / 180)}]},
+    scaleEngineRpm4kIndicator: {transform: [{translateX: (scaleOrigin.x - 2) - (scaleRadius + 30) * Math.cos(164 * Math.PI / 180)}, {translateY: (scaleOrigin.y + 11) - (scaleRadius + 30) * Math.sin(164 * Math.PI / 180)}, {rotate: '-16deg'}]},
 
-    scaleEngineRpm5kText: {transform: [{translateX: scaleOrigin.x - (scaleRadius + 4) * Math.cos(145 * Math.PI / 180)}, {translateY: scaleOrigin.y - (scaleRadius + 4) * Math.sin(145 * Math.PI / 180)}]},
-    scaleEngineRpm5kIndicator: {transform: [{translateX: (scaleOrigin.x - 2) - (scaleRadius + 30) * Math.cos(145 * Math.PI / 180)}, {translateY: (scaleOrigin.y + 10) - (scaleRadius + 30) * Math.sin(145 * Math.PI / 180)}, {rotate: '-31deg'}]},
+    scaleEngineRpm5kText: {transform: [{translateX: scaleOrigin.x - (scaleRadius + 4) * Math.cos(145 * Math.PI / 180)}, {translateY: scaleOrigin.y - (scaleRadius + 5) * Math.sin(145 * Math.PI / 180)}]},
+    scaleEngineRpm5kIndicator: {transform: [{translateX: (scaleOrigin.x - 2) - (scaleRadius + 30) * Math.cos(145 * Math.PI / 180)}, {translateY: (scaleOrigin.y + 11) - (scaleRadius + 30) * Math.sin(145 * Math.PI / 180)}, {rotate: '-31deg'}]},
 
-    scaleEngineRpm6kText: {transform: [{translateX: scaleOrigin.x - (scaleRadius + 4) * Math.cos(126 * Math.PI / 180)}, {translateY: scaleOrigin.y - (scaleRadius + 4) * Math.sin(126 * Math.PI / 180)}]},
-    scaleEngineRpm6kIndicator: {transform: [{translateX: (scaleOrigin.x - 2) - (scaleRadius + 30) * Math.cos(126 * Math.PI / 180)}, {translateY: (scaleOrigin.y + 10) - (scaleRadius + 30) * Math.sin(126 * Math.PI / 180)}, {rotate: '-52deg'}]},
+    scaleEngineRpm6kText: {transform: [{translateX: scaleOrigin.x - (scaleRadius + 4) * Math.cos(126 * Math.PI / 180)}, {translateY: scaleOrigin.y - (scaleRadius + 5) * Math.sin(126 * Math.PI / 180)}]},
+    scaleEngineRpm6kIndicator: {transform: [{translateX: (scaleOrigin.x - 2) - (scaleRadius + 30) * Math.cos(126 * Math.PI / 180)}, {translateY: (scaleOrigin.y + 11) - (scaleRadius + 30) * Math.sin(126 * Math.PI / 180)}, {rotate: '-52deg'}]},
 
-    scaleEngineRpm7kText: {transform: [{translateX: scaleOrigin.x - (scaleRadius + 4) * Math.cos(107 * Math.PI / 180)}, {translateY: scaleOrigin.y - (scaleRadius + 4) * Math.sin(107 * Math.PI / 180)}]},
-    scaleEngineRpm7kIndicator: {transform: [{translateX: (scaleOrigin.x - 2) - (scaleRadius + 30) * Math.cos(107 * Math.PI / 180)}, {translateY: (scaleOrigin.y + 10) - (scaleRadius + 30) * Math.sin(107 * Math.PI / 180)}, {rotate: '-71deg'}]}
+    scaleEngineRpm7kText: {transform: [{translateX: scaleOrigin.x - (scaleRadius + 4) * Math.cos(107 * Math.PI / 180)}, {translateY: scaleOrigin.y - (scaleRadius + 5) * Math.sin(107 * Math.PI / 180)}]},
+    scaleEngineRpm7kIndicator: {transform: [{translateX: (scaleOrigin.x - 2) - (scaleRadius + 30) * Math.cos(107 * Math.PI / 180)}, {translateY: (scaleOrigin.y + 11) - (scaleRadius + 30) * Math.sin(107 * Math.PI / 180)}, {rotate: '-71deg'}]}
 });
 
 function mapDispatchToProps(dispatch) {
