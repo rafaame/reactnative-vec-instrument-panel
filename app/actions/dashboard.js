@@ -9,7 +9,8 @@ export function initSocket() {
         let client = net.createConnection({
             host: config.serverIpAddr,
             port: config.serverPort,
-            timeout: config.tcpTimeout
+            timeout: config.tcpTimeout,
+            dataReceiverMode: true
         });
 
         let retrying = false;
@@ -26,17 +27,24 @@ export function initSocket() {
             }, 1000);
         };
 
+        client.on('connect', function () {
+            client.retrieveLastData();
+        });
+
         client.on('close', errorHandler);
         client.on('error', errorHandler);
         client.on('data', (payload) => {
+            console.log('received lastdata');
             let message = String.fromCharCode.apply(null, payload);
 
             try {
                 message = JSON.parse(message);
                 dispatch(receiveData(message));
             } catch (e) {
-                console.log('Discarding message: ', message);
+                console.log('Discarding message: ', message, e);
             }
+
+            client.retrieveLastData();
         });
     };
 }

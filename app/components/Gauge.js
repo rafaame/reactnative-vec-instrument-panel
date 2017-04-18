@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import ReactNative from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import TimerMixin from 'react-timer-mixin';
-import reactMixin from 'react-mixin';
 
 import { ActionCreators } from '../actions';
 import colors from '../colors';
 
-import * as Progress from 'react-native-progress';
+import { CircularProgress, AnimatedCircularProgress } from 'react-native-circular-progress';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const {
@@ -16,79 +14,243 @@ const {
     View,
     Text,
     Dimensions,
-    PixelRatio
+    PixelRatio,
+    Animated
 } = ReactNative;
+
+import Svg, {
+    Defs,
+    RadialGradient,
+    Stop,
+    Circle,
+    Rect,
+    G,
+    ClipPath
+} from 'react-native-svg';
+
+class GaugeIndicator extends Component {
+    constructor(props: any, context: any) {
+        super(props, context);
+        const angle = this.calculateAngle(props.progress);
+        const pos = this.calculatePos(angle);
+
+        this.angle = new Animated.Value(angle);
+        this.x = new Animated.Value(pos.x);
+        this.y = new Animated.Value(pos.y);
+    }
+
+    calculateAngle(progress) {
+        return this.props.startAngle + Math.max(Math.min(this.props.progress * 360 + this.props.minAngle, this.props.maxAngle), this.props.minAngle) * (this.props.direction === 'clockwise' ? 1 : -1);
+    }
+
+    calculatePos(angle) {
+        return {
+            x: this.props.origin.x - this.props.radius * Math.cos(angle * Math.PI / 180),
+            y: this.props.origin.y - this.props.radius * Math.sin(angle * Math.PI / 180)
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const newAngle = this.calculateAngle(nextProps.progress);
+        const newPos = this.calculatePos(newAngle);
+
+        this.angle = new Animated.Value(newAngle);
+        this.x = new Animated.Value(newPos.x);
+        this.y = new Animated.Value(newPos.y);
+        /*Animated.spring(this.angle, {
+            toValue: newAngle,
+            bounciness: 0,
+            useNativeDriver: true
+        }).start();
+
+        Animated.spring(this.x, {
+            toValue: newPos.x,
+            bounciness: 0,
+            useNativeDriver: true
+        }).start();
+
+        Animated.spring(this.y, {
+            toValue: newPos.y,
+            bounciness: 0,
+            useNativeDriver: true
+        }).start();*/
+    }
+
+    render() {
+        const angle = this.angle.interpolate({
+          inputRange: [0, 360],
+          outputRange: ['0deg', '360deg']
+        });
+
+        return (
+            <Animated.View style={[{
+                position: 'absolute',
+
+                width: 80,
+                height: 3,
+
+                backgroundColor: this.props.color,
+
+                transform: [
+                    {translateX: this.x},
+                    {translateY: this.y},
+                    {rotate: angle}
+                ],
+
+                zIndex: 5000
+            }]}></Animated.View>
+        );
+    }
+}
 
 class Gauge extends Component {
     static MAX_RPM = 8000;
     static MAX_SPEED = 180;
     static MAX_PROGRESS = 0.415;
 
+    static MIN_UPDATE_ENGINE_RPM = 100;
+    static MIN_UPDATE_SPEED = 4;
+
     constructor(props: any, context: any) {
         super(props, context);
 
-        this.interpolation = null;
-        this.interpolatedEngineRpm = 0;
-        this.interpolatedSpeed = 0;
-        this.engineRpmProgress = 0;
-        this.speedProgress = 0;
+        this.props.engineRpm = 0;
+        this.props.speed = 0;
+        this.props.engineRpmProgress = 0.0;
+        this.props.speedProgress = 0.0;
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.interpolation) {
-            this.clearInterval(this.interpolation);
+    shouldComponentUpdate(nextProps, nextState) {
+        return true;
+        
+        if (__DEV__) {
+            return true;
         }
 
-        let interpolatedEngineRpm = nextProps.engineRpm;
-        let interpolatedSpeed = nextProps.speed;
-
-        if (nextProps.receiveTimeHistory.length >= 2) {
-            this.interpolatedEngineRpm = nextProps.engineRpmHistory[1];
-            this.interpolatedSpeed = nextProps.speedHistory[1];
-
-            let lastTimeUpdated = (new Date()).getTime();
-            let engineRpmDerivative = (nextProps.engineRpm - nextProps.engineRpmHistory[1]) / (nextProps.receiveTime - nextProps.receiveTimeHistory[1]);
-            let speedDerivative = (nextProps.speed - nextProps.speedHistory[1]) / (nextProps.receiveTime - nextProps.receiveTimeHistory[1]);
-            
-            let interpolationFunc = () => {
-                let delay = (new Date()).getTime() - lastTimeUpdated;
-                lastTimeUpdated += delay;
-
-                this.interpolatedEngineRpm += engineRpmDerivative * delay;
-                this.interpolatedSpeed += speedDerivative * delay;
-
-                this.engineRpmProgress = Math.min(Gauge.MAX_PROGRESS, Gauge.MAX_PROGRESS * (this.interpolatedEngineRpm / Gauge.MAX_RPM));
-                this.speedProgress = Math.min(Gauge.MAX_PROGRESS, Gauge.MAX_PROGRESS * (this.interpolatedSpeed / Gauge.MAX_SPEED));
-
-                this.forceUpdate();
-            };
-
-            this.interpolation = this.setInterval(interpolationFunc, 10);
-            interpolationFunc();
+        if (Math.abs(nextProps.engineRpm - this.props.engineRpm) < Gauge.MIN_UPDATE_ENGINE_RPM) {
+            return false;
         }
+
+        if (Math.abs(nextProps.speed - this.props.speed) < Gauge.MIN_UPDATE_SPEED) {
+            return false;
+        }
+
+        return true;
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.innerWrapper}>
-                    <Text style={styles.speedText}>
-                        {Math.ceil(this.interpolatedSpeed)}
-                    </Text>
-                    <Text style={styles.speedTextUnit}>
-                        km/h
-                    </Text>
+                <View style={styles.backgroundContainer}>
+                    <Svg height="552" width="552">
+                        <Defs>
+                            <RadialGradient id="gradPrimary" cx="50%" cy="50%" r="50%" fx="50%" fy="50%" fr="0%">
+                                <Stop
+                                    offset="0.56"
+                                    stopColor={colors.grey.light}
+                                    stopOpacity="1"
+                                />
+                                <Stop
+                                    offset="0.575"
+                                    stopColor={colors.grey.dark}
+                                    stopOpacity="1"
+                                />
+                                <Stop
+                                    offset="0.60"
+                                    stopColor={colors.grey.dark}
+                                    stopOpacity="1"
+                                />
+                                <Stop
+                                    offset="0.87"
+                                    stopColor={colors.primary.dark}
+                                    stopOpacity="1"
+                                />
+                                <Stop
+                                    offset="0.88"
+                                    stopColor={colors.primary.light}
+                                    stopOpacity="1"
+                                />
+                                <Stop
+                                    offset="0.90"
+                                    stopColor={colors.primary.default}
+                                    stopOpacity="1"
+                                />
+                                <Stop
+                                    offset="1"
+                                    stopColor={colors.primary.default}
+                                    stopOpacity="1"
+                                />
+                            </RadialGradient>
+                            <RadialGradient id="gradInfo" cx="50%" cy="50%" r="50%" fx="50%" fy="50%" fr="0%">
+                                <Stop
+                                    offset="0.56"
+                                    stopColor={colors.grey.light}
+                                    stopOpacity="1"
+                                />
+                                <Stop
+                                    offset="0.575"
+                                    stopColor={colors.grey.dark}
+                                    stopOpacity="1"
+                                />
+                                <Stop
+                                    offset="0.60"
+                                    stopColor={colors.grey.dark}
+                                    stopOpacity="1"
+                                />
+                                <Stop
+                                    offset="0.87"
+                                    stopColor={colors.info.dark}
+                                    stopOpacity="1"
+                                />
+                                <Stop
+                                    offset="0.88"
+                                    stopColor={colors.info.light}
+                                    stopOpacity="1"
+                                />
+                                <Stop
+                                    offset="0.90"
+                                    stopColor={colors.info.default}
+                                    stopOpacity="1"
+                                />
+                                <Stop
+                                    offset="1"
+                                    stopColor={colors.info.default}
+                                    stopOpacity="1"
+                                />
+                            </RadialGradient>
+                            <ClipPath id="clipPrimary">
+                                <Rect x="50%" y="0" width="50%" height="100%" />
+                            </ClipPath>
+                            <ClipPath id="clipInfo">
+                                <Rect x="0" y="0" width="50%" height="100%" />
+                            </ClipPath>
+                        </Defs>
+                        <Circle cx="50%" cy="50%" r="50%" fill="url(#gradPrimary)" clipPath="url(#clipPrimary)">
+                        </Circle>
+                        <Circle cx="50%" cy="50%" r="50%" fill="url(#gradInfo)" clipPath="url(#clipInfo)">
+                        </Circle>
+                    </Svg>
+                </View>
+                <View style={styles.contentWrapper}>
+                    <View style={styles.innerWrapper}>
+                        <Text style={styles.speedText}>
+                            {Math.ceil(this.props.speed)}
+                        </Text>
+                        <Text style={styles.speedTextUnit}>
+                            km/h
+                        </Text>
 
-                    <Text style={styles.fuelLevel}>
-                        
-                    </Text>
+                        <Text style={styles.fuelLevel}>
+                            
+                        </Text>
 
-                    <Text style={styles.engineRpmText}>
-                        {(this.interpolatedEngineRpm / 1000).toFixed(1)}
-                    </Text>
-                    <Text style={styles.engineRpmTextUnit}>
-                        x1000 rpm
-                    </Text>
+                        <Text style={styles.engineRpmText}>
+                            {(this.props.engineRpm / 1000).toFixed(1)}
+                        </Text>
+                        <Text style={styles.engineRpmTextUnit}>
+                            x1000 rpm
+                        </Text>
+                    </View>
 
                     <Text style={[styles.scaleText, styles.scaleSpeed20Text]}>20</Text>
                     <View style={[styles.scaleIndicator, styles.scaleSpeed20Indicator]}></View>
@@ -134,31 +296,45 @@ class Gauge extends Component {
 
                     <Text style={[styles.scaleText, styles.scaleEngineRpm7kText]}>7</Text>
                     <View style={[styles.scaleIndicator, styles.scaleEngineRpm7kIndicator]}></View>
+
+                    <AnimatedCircularProgress
+                        size={553}
+                        width={114}
+                        rotation={0}
+                        prefill={Gauge.MAX_PROGRESS * 100}
+                        fill={this.props.engineRpmProgress ? this.props.engineRpmProgress : 0}
+                        tintColor={colors.grey.dark}
+                        backgroundColor='transparent'
+                        endDelimiterColor={colors.primary.light}
+                        style={styles.engineRpmProgress} />
+                    <AnimatedCircularProgress
+                        size={554}
+                        width={114}
+                        rotation={0}
+                        direction='counter-clockwise'
+                        prefill={Gauge.MAX_PROGRESS * 100}
+                        fill={this.props.speedProgress ? this.props.speedProgress : 0}
+                        tintColor={colors.grey.dark}
+                        backgroundColor='transparent'
+                        endDelimiterColor={colors.info.light}
+                        style={styles.speedProgress} />
+
+                    <CircularProgress
+                        size={553}
+                        width={114}
+                        rotation={0}
+                        fill={18}
+                        tintColor={colors.grey.dark}
+                        backgroundColor='transparent'
+                        style={styles.dummyProgress} />
                 </View>
-
-                <Progress.Circle
-                    progress={this.engineRpmProgress}
-                    direction={'counter-clockwise'}
-                    size={440}
-                    thickness={20}
-                    borderWidth={0}
-                    style={styles.engineRpmProgress}
-                    color={colors.primary.default} />
-
-                <Progress.Circle
-                    progress={this.speedProgress}
-                    size={440}
-                    thickness={20}
-                    borderWidth={0}
-                    style={styles.speedProgress}
-                    color={colors.info.default} />
             </View>
         )
     }
 }
 
-const scaleRadius = 178;
-const scaleOrigin = {x: 135, y: 86};
+const scaleRadius = 230;
+const scaleOrigin = {x: 266, y: 264};
 
 const styles = EStyleSheet.create({
     container: {
@@ -166,38 +342,72 @@ const styles = EStyleSheet.create({
         alignItems: 'center'
     },
 
+    backgroundContainer: {
+        position: 'absolute',
+        top: 0,
+        left: 42,
+
+        width: 552,
+        height: 552,
+
+        zIndex: 1000
+    },
+
+    contentWrapper: {
+        width: 556,
+        height: 556,
+
+        backgroundColor: 'transparent',
+        borderRadius: 556 / 2,
+        
+        zIndex: 2000
+    },
+
     innerWrapper: {
-        flex: 1,
-        aspectRatio: 1,
+        position: 'absolute',
+
+        width: 302,
+        height: 302,
+
+        left: 125,
+        top: 125,
+
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
 
         backgroundColor: colors.grey.default,
 
-        borderWidth: 80,
-        borderRadius: 480,
-        borderStyle: 'solid',
-        borderColor: colors.grey.dark
+        borderRadius: 480
     },
 
     engineRpmProgress: {
         position: 'absolute',
-        top: 3,
-        left: 100,
+        top: -1,
+        left: 0,
 
         transform: [
-            {rotate: '-210deg'}
+            {rotate: '-0.5deg'}
         ]
     },
 
     speedProgress: {
         position: 'absolute',
-        top: 3,
-        left: 100,
+        top: -1,
+        left: -1,
 
         transform: [
-            {rotate: '210deg'}
+            {rotate: '0.5deg'}
+        ]
+    },
+
+    dummyProgress: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+
+        transform: [
+            {rotate: '148deg'}
         ]
     },
 
@@ -240,7 +450,9 @@ const styles = EStyleSheet.create({
         height: 20,
 
         fontSize: 18,
-        color: colors.text.light
+        color: colors.text.light,
+
+        zIndex: 2000
     },
 
     scaleIndicator: {
@@ -249,7 +461,9 @@ const styles = EStyleSheet.create({
         width: 20,
         height: 3,
 
-        backgroundColor: colors.text.light
+        backgroundColor: colors.text.light,
+
+        zIndex: 2000
     },
 
     scaleSpeed20Text: {transform: [{translateX: scaleOrigin.x - scaleRadius * Math.cos(-40.5 * Math.PI / 180)}, {translateY: scaleOrigin.y - scaleRadius * Math.sin(-40.5 * Math.PI / 180)}]},
@@ -302,16 +516,14 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 
-reactMixin(Gauge.prototype, TimerMixin);
-
 export default connect((data) => {
     return {
         engineRpm: data.receiveData.engineRpm,
         speed: data.receiveData.speed,
-        receiveTime: data.receiveData.receiveTime,
         
-        engineRpmHistory: data.receiveData.engineRpmHistory,
-        speedHistory: data.receiveData.speedHistory,
-        receiveTimeHistory: data.receiveData.receiveTimeHistory
+        engineRpmProgress: Gauge.MAX_PROGRESS * 100 * (1 - ((data.receiveData.engineRpmHistory.length > 1 ? data.receiveData.engineRpmHistory[0] : data.receiveData.engineRpm)) / Gauge.MAX_RPM),
+
+        speedIndicatorProgress: Math.min(Gauge.MAX_PROGRESS, Gauge.MAX_PROGRESS * (data.receiveData.speed / Gauge.MAX_SPEED)),
+        speedProgress: Gauge.MAX_PROGRESS * 100 * (1 - (data.receiveData.speedHistory.length > 1 ? data.receiveData.speedHistory[0] : data.receiveData.speed) / Gauge.MAX_SPEED)
     };
 }, mapDispatchToProps)(Gauge);

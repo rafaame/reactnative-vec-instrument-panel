@@ -5,12 +5,15 @@ import { bindActionCreators } from 'redux';
 import TimerMixin from 'react-timer-mixin';
 import reactMixin from 'react-mixin';
 import LockManager from 'react-native-lock-manager';
+import DeviceBrightness from 'react-native-device-brightness';
 const Orientation = require('react-native-orientation');
 
 import { ActionCreators } from '../actions';
 import Gauge from '../components/Gauge';
 import LineChart from '../components/LineChart';
 import Icon from '../components/Icon';
+
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const {
     StyleSheet,
@@ -21,7 +24,7 @@ const {
 } = ReactNative;
 
 class Dashboard extends Component {
-    static TIMEOUT = 5000;
+    static TIMEOUT = 10000;
 
     constructor(props: any, context: any) {
         super(props, context);
@@ -55,12 +58,20 @@ class Dashboard extends Component {
     }
 
     render() {
-        if (! this.props.isDriverPresent || ! this.isConnected()) {
+        let showDashboard = this.isConnected() && this.props.isDriverPresent;
+        DeviceBrightness.getBrightnessLevel()
+            .then(function (brightness) {
+                if (brightness !== (showDashboard ? 1 : 0)) {
+                    DeviceBrightness.setBrightnessLevel(showDashboard ? 1 : 0);
+                }
+            });
+
+        if (! showDashboard) {
             return (
                 <View style={styles.sleep}>
                     <StatusBar hidden />
                 </View>
-            )
+            );
         }
 
         return (
@@ -89,7 +100,7 @@ class Dashboard extends Component {
                         <View style={styles.panelCenterTop}></View>
                         
                         <View style={styles.gaugeContainer}>
-                            <Gauge speed={this.props.speed} />
+                            <Gauge speed={this.props.datajson} />
                         </View>
                         
                         <View style={styles.panelCenterBottom}></View>
@@ -97,21 +108,18 @@ class Dashboard extends Component {
 
                     <View style={styles.panelRight}>
                         <View style={styles.powerChartContainer}>
-                            <LineChart width={298} height={310} x={this.props.receiveTime} y={this.props.engineRpm} color="primary" maxPoints={50} />
                         </View>
 
                         <View style={styles.efficiencyChartContainer}>
-                            <LineChart width={298} height={310} x={this.props.receiveTime} y={this.props.speed} color="info" maxPoints={50} />
                         </View>
                     </View>
                 </View>
-                <View style={styles.footer} />
             </View>
         )
     }
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   dashboard: {
     flex: 1,
     flexDirection: 'column',
@@ -126,7 +134,7 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    flex: 0.2,
+    flex: 0.4,
     flexDirection: 'row',
 
     backgroundColor: '#212121'
@@ -145,13 +153,6 @@ const styles = StyleSheet.create({
 
     alignItems: 'center',
     justifyContent: 'flex-end'
-  },
-
-  footer: {
-    flex: 0.2,
-    flexDirection: 'row',
-
-    backgroundColor: '#212121'
   },
 
   panel: {
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
   },
 
   gaugeContainer: {
-    height: 448,
+    height: 552,
     flexDirection: 'column',
     alignItems: 'stretch'
   },

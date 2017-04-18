@@ -4,13 +4,13 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import org.capslock.RNDeviceBrightness.RNDeviceBrightness;
 import com.horcrux.svg.RNSvgPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import me.rafaa.react.LockManagerModule;
 import com.devstepbcn.wifi.AndroidWifiPackage;
 import com.peel.react.TcpSocketsModule;
 import com.corbt.keepawake.KCKeepAwakePackage;
-import com.tradle.react.UdpSocketsModule;
 import com.github.yamill.orientation.OrientationPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
@@ -33,13 +33,13 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNDeviceBrightness(),
             new RNSvgPackage(),
             new VectorIconsPackage(),
             new LockManagerModule(),
             new AndroidWifiPackage(),
             new TcpSocketsModule(),
             new KCKeepAwakePackage(),
-            new UdpSocketsModule(),
             new OrientationPackage()
       );
     }

@@ -36,7 +36,6 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		2C8E99D44D3B47A6BF982BF7 /* libRCTOrientation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61A34DD637C747D49E61D389 /* libRCTOrientation.a */; };
-		B74E5060A7124220BFC3F958 /* libUdpSockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6C0AE8F8894B298CCEF876 /* libUdpSockets.a */; };
 		BFCD9FBC0879408882CF8054 /* libKCKeepAwake.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C179D7CDE4EA4FC1970E8CAB /* libKCKeepAwake.a */; };
 		777207471243499AAF7A929E /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1EEECB2DE9F424281F2E701 /* libRCTActionSheet.a */; };
 		E64EBE96E74844918CEFE092 /* libTcpSockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 543C560003B8460A8B7011E1 /* libTcpSockets.a */; };
@@ -52,6 +51,8 @@
 		8476ECC0B02B4122ABC3B722 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 918389EF5432482495A0019D /* SimpleLineIcons.ttf */; };
 		6BA16ED2225C4328A59B2A3E /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B96DDAFC8834DDF9FE303A9 /* Zocial.ttf */; };
 		036EF5D3E71748CF85C3AD4F /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF67A3955074929BDF5C98D /* libRNSVG.a */; };
+		66032FB5F7B3406A8BBA45B3 /* libRNDeviceBrightness.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF83598526A437180603E54 /* libRNDeviceBrightness.a */; };
+		7105AF0848DB4033B240E2B0 /* libWorkers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26037CE9DF5F4541ABF06CA8 /* libWorkers.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -273,8 +274,6 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		D5721979690D4627B98BE1DD /* RCTOrientation.xcodeproj */ = {isa = PBXFileReference; name = "RCTOrientation.xcodeproj"; path = "../node_modules/react-native-orientation/iOS/RCTOrientation.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		61A34DD637C747D49E61D389 /* libRCTOrientation.a */ = {isa = PBXFileReference; name = "libRCTOrientation.a"; path = "libRCTOrientation.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		3EE3644C090348928D50BD4D /* UdpSockets.xcodeproj */ = {isa = PBXFileReference; name = "UdpSockets.xcodeproj"; path = "../node_modules/react-native-udp/ios/UdpSockets.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		9B6C0AE8F8894B298CCEF876 /* libUdpSockets.a */ = {isa = PBXFileReference; name = "libUdpSockets.a"; path = "libUdpSockets.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		AA93D824F63C46599B0C6B74 /* KCKeepAwake.xcodeproj */ = {isa = PBXFileReference; name = "KCKeepAwake.xcodeproj"; path = "../node_modules/react-native-keep-awake/ios/KCKeepAwake.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		C179D7CDE4EA4FC1970E8CAB /* libKCKeepAwake.a */ = {isa = PBXFileReference; name = "libKCKeepAwake.a"; path = "libKCKeepAwake.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		C512422BAD8C43A396B74BB2 /* ConicalGradient.xcodeproj */ = {isa = PBXFileReference; name = "ConicalGradient.xcodeproj"; path = "../node_modules/ConicalGradient/ios/ConicalGradient.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
@@ -295,6 +294,10 @@
 		0B96DDAFC8834DDF9FE303A9 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		C722DAC8A170475DA626FBFB /* RNSVG.xcodeproj */ = {isa = PBXFileReference; name = "RNSVG.xcodeproj"; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		3EF67A3955074929BDF5C98D /* libRNSVG.a */ = {isa = PBXFileReference; name = "libRNSVG.a"; path = "libRNSVG.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		4C03EDFD3FC84278B75A0DE0 /* RNDeviceBrightness.xcodeproj */ = {isa = PBXFileReference; name = "RNDeviceBrightness.xcodeproj"; path = "../node_modules/react-native-device-brightness/RNDeviceBrightness.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		3AF83598526A437180603E54 /* libRNDeviceBrightness.a */ = {isa = PBXFileReference; name = "libRNDeviceBrightness.a"; path = "libRNDeviceBrightness.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		090AC96C63924A9885D4AC62 /* Workers.xcodeproj */ = {isa = PBXFileReference; name = "Workers.xcodeproj"; path = "../node_modules/react-native-workers/ios/Workers.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		26037CE9DF5F4541ABF06CA8 /* libWorkers.a */ = {isa = PBXFileReference; name = "libWorkers.a"; path = "libWorkers.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -322,12 +325,13 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				2C8E99D44D3B47A6BF982BF7 /* libRCTOrientation.a in Frameworks */,
-				B74E5060A7124220BFC3F958 /* libUdpSockets.a in Frameworks */,
 				BFCD9FBC0879408882CF8054 /* libKCKeepAwake.a in Frameworks */,
 				777207471243499AAF7A929E /* libRCTActionSheet.a in Frameworks */,
 				E64EBE96E74844918CEFE092 /* libTcpSockets.a in Frameworks */,
 				81DFFD7280E54CD3BB695055 /* libRNVectorIcons.a in Frameworks */,
 				036EF5D3E71748CF85C3AD4F /* libRNSVG.a in Frameworks */,
+				66032FB5F7B3406A8BBA45B3 /* libRNDeviceBrightness.a in Frameworks */,
+				7105AF0848DB4033B240E2B0 /* libWorkers.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,12 +499,13 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				D5721979690D4627B98BE1DD /* RCTOrientation.xcodeproj */,
-				3EE3644C090348928D50BD4D /* UdpSockets.xcodeproj */,
 				AA93D824F63C46599B0C6B74 /* KCKeepAwake.xcodeproj */,
 				C512422BAD8C43A396B74BB2 /* ConicalGradient.xcodeproj */,
 				A02BE39A2209447EBD2EFECC /* TcpSockets.xcodeproj */,
 				99EC6931AF4343DFA4732B44 /* RNVectorIcons.xcodeproj */,
 				C722DAC8A170475DA626FBFB /* RNSVG.xcodeproj */,
+				4C03EDFD3FC84278B75A0DE0 /* RNDeviceBrightness.xcodeproj */,
+				090AC96C63924A9885D4AC62 /* Workers.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1057,8 +1062,6 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/vecinstrumentpanel.app/vecinstrumentpanel";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1079,8 +1082,6 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/vecinstrumentpanel.app/vecinstrumentpanel";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Release;
@@ -1145,8 +1146,6 @@
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1176,8 +1175,6 @@
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Release;
@@ -1202,8 +1199,6 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1228,8 +1223,6 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Release;

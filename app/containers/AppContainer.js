@@ -27,9 +27,9 @@ class AppContainer extends Component {
 
         this.props.initSocket();
 
-        if (! __DEV__) {
-            this.props.checkWifiConnection();
-        }
+        // if (! __DEV__) {
+        //     this.props.checkWifiConnection();
+        // }
 	}
 
     render() {

@@ -1,8 +1,8 @@
 export default {
 	primary: {
         default: '#FF9800',
-        light: '#FF9800',
-        dark: '#FF9800'
+        light: '#FFC107',
+        dark: '#FF6D00'
     },
 
 	success: {
@@ -13,8 +13,8 @@ export default {
 
     info: {
         default: '#2196F3',
-        light: '#2196F3',
-        dark: '#2196F3'
+        light: '#64B5F6',
+        dark: '#0D47A1'
     },
 
     warning: {
@@ -31,7 +31,7 @@ export default {
 
     grey: {
     	default: '#303030',
-    	light: '',
+    	light: '#707070',
     	dark: '#101010'
     },
 
